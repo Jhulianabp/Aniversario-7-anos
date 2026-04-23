@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surpresa para o meu Amor ❤️</title>
+    <style>
+        :root { --cor-principal: #ad1457; --cor-fundo: #fce4ec; }
+        body { background-color: var(--cor-fundo); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 650px; text-align: center; position: relative; overflow-y: auto; max-height: 95vh; }
+        .questao { background: #fdf2f7; padding: 20px; border-radius: 10px; text-align: left; font-family: 'Times New Roman', serif; margin-bottom: 20px; border-left: 5px solid var(--cor-principal); line-height: 1.4; }
+        input { width: 85%; padding: 12px; border: 2px solid #f8bbd0; border-radius: 10px; font-size: 1.1rem; margin-bottom: 10px; outline: none; }
+        button { background: var(--cor-principal); color: white; border: none; padding: 15px 25px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; }
+        .slider-container { position: relative; width: 100%; max-width: 500px; margin: 20px auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: none; background: #000; }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slides img { width: 100%; flex-shrink: 0; object-fit: contain; max-height: 450px; }
+        .seta { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .seta-esq { left: 10px; }
+        .seta-dir { right: 10px; }
+        .msg-amor { color: #4a4a4a; line-height: 1.6; margin: 20px 0; white-space: pre-line; font-size: 1.1rem; text-align: left; }
+        .hidden { display: none; }
+        #feedback { font-weight: bold; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="conteudo">
+        <h1 id="header-titulo" style="color: var(--cor-principal);">Desafio Matemático ❤️</h1>
+        
+        <div id="area-pergunta">
+            <div class="questao" id="texto-questao"></div>
+            <input type="text" id="resposta-input" placeholder="Sua resposta...">
+            <div id="feedback"></div>
+            <button onclick="verificar()">Desbloquear Fase</button>
+        </div>
+
+        <div id="area-recompensa" class="hidden">
+            <p id="msg-acerto-topo" style="color: #d81b60; font-weight: bold; font-size: 1.2rem;"></p>
+            <div class="msg-amor" id="mensagem-corpo"></div>
+            
+            <div class="slider-container" id="slider">
+                <button class="seta seta-esq" onclick="mudarSlide(-1)">❮</button>
+                <div class="slides" id="slides-wrapper"></div>
+                <button class="seta seta-dir" onclick="mudarSlide(1)">❯</button>
+            </div>
+            <div id="cont-fotos" style="font-size: 0.8rem; color: #888; margin-bottom: 10px;"></div>
+
+> Eu - Celular:
+<button id="btn-proximo" onclick="proximaFase()">Próxima fase ➔</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const fases = [
+        {
+            titulo: "Fase 1",
+            pergunta: "(EsPCEx) Determine o valor de x que satisfaz a equação: log₂(x - 3) + log₂(x + 3) = log₂ 7",
+            res: "4",
+            msgAcerto: "Meu bebê é muito inteligente mesmo, né?",
+            msgErro: "Vish amorzinho, tente novamente! Você consegue meu bebê!",
+            texto: 24/04/2019 ❤️ 
+Fou dia que você me escolheu. O dia em que me tornei a mulher mais feliz do mundo. O dia que ficará marcado para sempre na nossa história como o início de tudo! 
+Você me escolheu, e eu te escolho todo dia, meu amor! Em cada momento, hora, minuto e segundo, eu escolho você!,
+            fotos: ["foto1.jpg"]
+        },
+        {
+            titulo: "Fase 2",
+            pergunta: "(Barro Branco) Uma urna contém 5 bolas brancas e 3 pretas. Se retirarmos 3 bolas ao acaso, sem reposição, qual a probabilidade de saírem exatamente 2 bolas brancas? (Responda em fração, ex: 8/12)",
+            res: "15/28",
+            msgAcerto: "Nunca duvidei de você, meu bebê esperto!",
+            msgErro: "Autodestruição em \n\n3\n2\n1\n.\n.\n.\n\nBrincadeira! Tente novamente kkkk",
+            texto: Vamos voltar um pouco no tempo? Nossa história é bem grande né? Foram 7 anos de muito amor, mas é muito bom relembrar as coisas boas que passamos juntos! Nem tudo foi um mar de rosas, mas estamos aqui hoje, firmes e fortes, nos amando cada dia mais. Criando planos, pensando no futuro, nome dos filhos.. estou ansiosa pelo nosso futuro, e sou apaixonada pelo nosso passado! Eu te amo ❤️,
+            fotos: ["historia1.jpg", "historia2.jpg", "historia3.jpg", "historia4.jpg", "historia5.jpg", "historia6.jpg", "historia7.jpg", "historia8.jpg"]
+        },
+        {
+            titulo: "Fase 3",
+            pergunta: "Determine o valor de k para que o sistema { 2x + y = 5 ; x - 3y = -8 } satisfaça k = x + y.",
+            res: "4",
+            msgAcerto: "Meu bebê é muito inteligente mesmo, né?",
+            msgErro: "Vish amorzinho, tente novamente! Você consegue meu bebê!",
+            texto: Se lembra disso?,
+            fotos: ["cruzadinha.jpg"] // Aqui você coloca a imagem da cruzadinha que forma a frase
+        },
+        {
+            titulo: "Fase 4",
+            pergunta: "(EFOMM) Calcule o limite: lim (x→0) [ (sen 5x) / (3x) ]. (Responda em fração, ex: 12/4)",
+            res: "5/3",
+            msgAcerto: "Nunca duvidei de você, meu bebê esperto!",
+            msgErro: "Autodestruição em \n\n3\n2\n1\n.\n.\n.\n\nBrincadeira! Tente novamente kkkk",
+            texto: Esse foi o dia mais importante da minha vida! O dia que você me escolheu para passar o resto da vida ao meu lado! Foi tudo tão incrível e perfeito! Agradeço por tudo que você fez por mim naqueles dias, nossa viagem, o seu pedido, o meu anel belíssimo.. eu sou grata demais por cada momento da nossa viagem incrível! Me senti muito amada, realizada e valorizada! O que eu senti quando você pediu minha mão foi indescritível! Queria tanto voltar para reviver aquele dia novamente.. espero ainda poder viver muitos momentos felizes na vida com você, até que a morte nos separe, (ou não, não te deixarei em paz na eternidade kkkk) EU TE AMO COM TODO O MEU CORAÇÃO!! ❤️,
+            fotos: ["pedido1.jpg", "pedido2.jpg", "pedido3.jpg", "pedido4.jpg", "pedido5.jpg", "pedido6.jpg"]
+        },
+        {
+            titulo: "Fase Final",
+            pergunta: "Então amor, minha surpresa está chegando ao fim, então, essa é a questão mais difícil de todas! Boa sorte, você consegue!\n\n(Escola Naval) Determine ∫ de 0 a π/2 de (sen x / (sen x + cos x)) dx. (Ex: pi/4)",
+            res: "pi/4",
+            msgAcerto: "Muito bem, meu amor, você conseguiu desbloquear a fase final!",
+
+> Eu - Celular:
+msgErro: "Não se preocupe, leve o tempo que precisar!",
+            texto: Espero que você tenha se divertido com esse desafio que preparei para você! Fiquei muito tempo pensando em como eu poderia te surpreender, e eu espero que você tenha gostado dessa viagem no tempo! 
+
+Sabe o que é o amor?
+Na ciência, ele pode ser explicado como um conjunto de reações químicas e impulsos elétricos no cérebro, substâncias que geram prazer, apego e conexão, como se fosse uma combinação perfeita entre química e física dentro da gente.
+Mas, pra mim, não é só isso… é o jeito que você muda meu dia sem esforço, a paz que eu sinto quando tô perto, e a vontade constante de te ter por perto. O amor é os seus olhos, seu sorriso, seu cheiro e o seu abraço quentinho. O amor é o que eu sinto quando eu deito no seu peito e você me da um beijo bem molhado na testa!
+No fim, podem até explicar o amor com fórmulas… mas o meu tem nome, e é você. ❤️ 
+Você é o meu amor, você é o meu mundo, e você é a minha vida! Eu não existo se você não existir, por que você é tudo que eu quero e que eu sempre quis, até o mundo acabar! Obrigada, por você ser você, EU TE AMO! ❤️
+
+Viaje no tempo comigo!,
+            fotos: ["final1.jpg", "final2.jpg", "final3.jpg", "final4.jpg"] // Adicione quantas fotos quiser aqui
+        }
+    ];
+
+    let etapa = 0;
+    let slideIndex = 0;
+
+    function carregar() {
+        document.getElementById("header-titulo").innerText = fases[etapa].titulo;
+        document.getElementById("texto-questao").innerText = fases[etapa].pergunta;
+        document.getElementById("area-pergunta").classList.remove("hidden");
+        document.getElementById("area-recompensa").classList.add("hidden");
+        document.getElementById("feedback").innerText = "";
+        document.getElementById("resposta-input").value = "";
+    }
+
+    function verificar() {
+        const resp = document.getElementById("resposta-input").value.trim().toLowerCase();
+        if(resp === fases[etapa].res.toLowerCase()) {
+            document.getElementById("area-pergunta").classList.add("hidden");
+            document.getElementById("area-recompensa").classList.remove("hidden");
+            document.getElementById("msg-acerto-topo").innerText = fases[etapa].msgAcerto;
+            document.getElementById("mensagem-corpo").innerText = fases[etapa].texto;
+            
+            const wrapper = document.getElementById("slides-wrapper");
+            wrapper.innerHTML = "";
+            fases[etapa].fotos.forEach(f => {
+                const img = document.createElement("img");
+                img.src = f;
+                wrapper.appendChild(img);
+            });
+            slideIndex = 0;
+            document.getElementById("slider").style.display = "block";
+            atualizarSlider();
+        } else {
+            const fbk = document.getElementById("feedback");
+            fbk.innerText = fases[etapa].msgErro;
+            fbk.style.color = "red";
+            fbk.style.whiteSpace = "pre-line";
+        }
+    }
+
+    function mudarSlide(n) {
+        slideIndex += n;
+        const total = fases[etapa].fotos.length;
+        if (slideIndex >= total) slideIndex = 0;
+        if (slideIndex < 0) slideIndex = total - 1;
+        atualizarSlider();
+    }
+
+    function atualizarSlider() {
+        const wrapper = document.getElementById("slides-wrapper");
+        wrapper.style.transform = translateX(${-slideIndex * 100}%);
+        document.getElementById("cont-fotos").innerText = ${slideIndex + 1} de ${fases[etapa].fotos.length};
+        document.querySelectorAll('.seta').forEach(s => s.style.display = fases[etapa].fotos.length > 1 ? "flex" : "none");
+    }
+
+    function proximaFase() {
+        etapa++;
+        if(etapa < fases.length) carregar();
+        else document.getElementById("conteudo").innerHTML = "<h1>Fim da nossa viagem... por enquanto! ❤️</h1>";
+    }
+
+    carregar();
+</script>
+</body>
+</html>
